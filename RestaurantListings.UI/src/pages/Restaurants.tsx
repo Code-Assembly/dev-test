@@ -18,7 +18,9 @@ export function Restaurants() {
       const restaurants = await getRestaurants();
       setRestaurants(restaurants);
       
-      setTags(restaurants.flatMap((restaurant) => restaurant.tags));
+      const uniqueTags = new Set(restaurants.flatMap((restaurant) => restaurant.tags));
+      const sortedTags = Array.from(uniqueTags).sort();
+      setTags(sortedTags);
     }
 
     fetchRestaurants();
