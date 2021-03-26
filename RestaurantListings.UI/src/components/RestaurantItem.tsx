@@ -1,4 +1,5 @@
 import { Restaurant } from "../interfaces/restaurant";
+import { StarRating } from "./StarRating";
 import styled from "@emotion/styled";
 export interface RestaurantItemProps {
   restaurant: Restaurant;
@@ -7,7 +8,7 @@ export interface RestaurantItemProps {
 const Resturant = styled.article({
   fontSize: 14,
   overflow: "hidden",
-  backgroundColor: '#FFF',
+  backgroundColor: "#FFF",
   borderRadius: "0.5em",
   boxShadow:
     "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px",
@@ -18,7 +19,7 @@ const Resturant = styled.article({
 
     h1: {
       fontSize: "1.5rem",
-      margin: "0 0 0.5em 0",
+      margin: "0 0 0.125em 0",
     },
   },
 
@@ -75,6 +76,7 @@ export function RestaurantItem(props: RestaurantItemProps) {
         />
         <div>
           <h1>{restaurant.name}</h1>
+          <StarRating rating={restaurant.rating} />
           <address>{restaurant.address}</address>
           <address>
             <Telephone href={"tel:" + restaurant.phoneNumber} rel="nofollow">
