@@ -15,9 +15,10 @@ export function Restaurants() {
 
   useEffect(() => {
     async function fetchRestaurants() {
-      const data = await getRestaurants();
-      setRestaurants(data);
-      setTags(data.flatMap((x) => x.tags));
+      const restaurants = await getRestaurants();
+      setRestaurants(restaurants);
+      
+      setTags(restaurants.flatMap((restaurant) => restaurant.tags));
     }
 
     fetchRestaurants();
