@@ -73,7 +73,11 @@ namespace RestaurantListings.Data.Migrations
                     ClientId = table.Column<string>(maxLength: 200, nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
                     Expiration = table.Column<DateTime>(nullable: true),
-                    Data = table.Column<string>(maxLength: 50000, nullable: false)
+                    Data = table.Column<string>(maxLength: 50000, nullable: false),
+
+                    SessionId = table.Column<string>(maxLength: 200, nullable: true),
+                    Description = table.Column<string>(maxLength: 50000, nullable: true),
+                    ConsumedTime = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
