@@ -30,12 +30,21 @@ export function Restaurants() {
     fetchRestaurants();
   }, []);
 
-  const handleFiltersChange = useCallback((value: RestaurantFiltersState) => {
-    setRestaurants((nextRestaurants) => {
+  const handleFiltersChange = useCallback(
+    (value: RestaurantFiltersState) => {
+      let nextRestaurants = restaurants;
+
       if (value.tags.length) {
-        value.tags.forEach((tag) => {
-          nextRestaurants = nextRestaurants.filter((r) => r.tags.includes(tag));
-        });
+        nextRestaurants = nextRestaurants.filter((restaurant) =>
+
+        // Note: every or some can be used below
+        // every : choose resturants with all selected tags (inclusive)
+        // some: choose resturants with some matching tags (intersecting)
+
+          value.tags.every((resturantTag) =>
+            restaurant.tags.includes(resturantTag)
+          )
+        );
       }
 
       if (value.isFamilyFriendly) {
@@ -46,14 +55,15 @@ export function Restaurants() {
         nextRestaurants = nextRestaurants.filter((r) => r.veganFriendly);
       }
 
-      return nextRestaurants;
-    });
-  }, []);
+      setFilteredRestaurants(nextRestaurants);
+    },
+    [restaurants]
+  );
 
   return (
     <Container>
       <RestaurantFilters tags={tags} onChange={handleFiltersChange} />
-      <RestaurantList restaurants={restaurants} />
+      <RestaurantList restaurants={filteredRestaurants} />
     </Container>
   );
 }
