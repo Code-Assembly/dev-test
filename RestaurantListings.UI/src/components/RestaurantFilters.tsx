@@ -20,9 +20,11 @@ const restaurantFiltersReducer: Reducer<
 > = (state, action) => {
   switch (action.type) {
     case "toggleTag": {
-      const tagIndex = state.tags.indexOf(action.payload.tag);
-      if (tagIndex !== -1) {
-        return { ...state, tags: state.tags.splice(tagIndex, 1) };
+      if (state.tags.includes(action.payload.tag)) {
+        return {
+          ...state,
+          tags: state.tags.filter((tag) => tag !== action.payload.tag),
+        };
       } else {
         return { ...state, tags: [...state.tags, action.payload.tag] };
       }
