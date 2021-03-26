@@ -9,7 +9,7 @@ import {
 } from "../components/RestaurantFilters";
 import { Restaurant } from "../interfaces/restaurant";
 
-export function Restaurants() {
+export default function Restaurants() {
   const [tags, setTags] = useState<string[]>([]);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState<Restaurant[]>(
