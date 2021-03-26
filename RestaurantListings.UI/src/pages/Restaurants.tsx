@@ -12,13 +12,17 @@ import { Restaurant } from "../interfaces/restaurant";
 export function Restaurants() {
   const [tags, setTags] = useState<string[]>([]);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState<Restaurant[]>(
+    []
+  );
 
   useEffect(() => {
     async function fetchRestaurants() {
       const restaurants = await getRestaurants();
       setRestaurants(restaurants);
-      
-      const uniqueTags = new Set(restaurants.flatMap((restaurant) => restaurant.tags));
+      setFilteredRestaurants(restaurants);
+
+      const uniqueTags = new Set(restaurants.flatMap((r) => r.tags));
       const sortedTags = Array.from(uniqueTags).sort();
       setTags(sortedTags);
     }
