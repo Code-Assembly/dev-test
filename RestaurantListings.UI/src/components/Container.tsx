@@ -7,4 +7,8 @@ export const Container = styled.div({
   display: "flex",
   flexDirection: "row",
   gap: "2rem",
+
+  '@media (max-width: 720px)':{
+    flexDirection: 'column'
+  }
 });

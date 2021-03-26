@@ -9,8 +9,8 @@ export interface RestaurantListProps {
 }
 
 const Main = styled.main`
-  flex: 1 1 auto;
-  
+  flex: 0 1 auto;
+
   & > * {
     margin-bottom: 1.5rem;
   }
