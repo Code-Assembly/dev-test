@@ -31,10 +31,9 @@ const restaurantFiltersReducer: Reducer<
     case "toggleFamilyFriendly": {
       return { ...state, isFamilyFriendly: !state.isFamilyFriendly };
     }
-
+    
     case "toggleVeganFriendly": {
-      state.isVeganFriendly = !state.isVeganFriendly;
-      return state;
+      return { ...state, isVeganFriendly: !state.isVeganFriendly };
     }
 
     default:
