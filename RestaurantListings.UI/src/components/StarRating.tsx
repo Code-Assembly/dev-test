@@ -1,10 +1,8 @@
 import styled from "@emotion/styled";
 import React from "react";
 
-const Star = (props: { index: number; rating: number }) => {
-  const { index, rating } = props;
-
-  const fill = rating >= index ? "#FBC02D" : "#FFF";
+const Star = (props: { fill: string }) => {
+  const { fill } = props;
 
   return (
     <svg
@@ -23,9 +21,35 @@ const Star = (props: { index: number; rating: number }) => {
   );
 };
 
-const RatingContainer = styled.div({
+const StarRatingIcon = (props: {
+  index: number;
+  rating: number;
+  onMouseEnter: Function;
+  onMouseLeave: Function;
+  onSaveRating: Function;
+}) => {
+  const { index, rating = 0, onMouseEnter, onMouseLeave, onSaveRating } = props;
+  const fill = rating >= index ? "#FBC02D" : "#FFF";
+
+  return (
+    <div
+      onMouseEnter={() => onMouseEnter(index)}
+      onMouseLeave={() => onMouseLeave()}
+      onClick={() => onSaveRating(index)}
+    >
+      <Star fill={fill} />
+    </div>
+  );
+};
+
+const Container = styled.div({
   display: "inline-flex",
   padding: "0.5em 0",
+});
+
+const StarContainer = styled.div({
+  display: "inline-flex",
+  cursor: "pointer",
 });
 
 const RatingAvatar = styled.em({
@@ -40,20 +64,47 @@ const RatingAvatar = styled.em({
   marginRight: "1em",
 });
 
-export function StarRating(props: { rating: number }) {
-  const { rating } = props;
+export function StarRating(props: {
+  rating: number;
+  saveRating?: (rating: number) => {};
+}) {
+  const { rating, saveRating } = props;
 
-  const formattedRating = Number.parseFloat(
-    (Math.round(rating * 100) / 100).toFixed(1)
-  );
+  const [userRating, setUserRating] = React.useState(0);
+
+  const onMouseEnter = (index: number) => {
+    setUserRating(index);
+  };
+
+  const onMouseLeave = () => {
+    setUserRating(0);
+  };
+
+  const onSaveRating = (rating: number) => {
+    if (saveRating) {
+      saveRating(rating);
+    }
+  };
+
+  const formattedRating =
+    userRating ||
+    Number.parseFloat((Math.round(rating * 100) / 100).toFixed(1));
 
   return (
-    <RatingContainer>
+    <Container>
       <RatingAvatar>{formattedRating}</RatingAvatar>
-
-      {[1, 2, 3, 4, 5].map((s) => (
-        <Star index={s} rating={formattedRating} key={s} />
-      ))}
-    </RatingContainer>
+      <StarContainer>
+        {[1, 2, 3, 4, 5].map((s) => (
+          <StarRatingIcon
+            index={s}
+            rating={formattedRating}
+            key={s}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            onSaveRating={onSaveRating}
+          />
+        ))}
+      </StarContainer>
+    </Container>
   );
 }
