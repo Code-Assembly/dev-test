@@ -72,7 +72,7 @@ export function RestaurantFilters(props: RestaurantFiltersProps) {
   }, [state, onChange]);
 
   return (
-    <div style={{ flex: "1 0 250px" }}>
+    <div style={{ flex: "0 1 250px", minWidth: "140px" }}>
       <FilterGroup>
         <FilterTitle>Tags</FilterTitle>
 
