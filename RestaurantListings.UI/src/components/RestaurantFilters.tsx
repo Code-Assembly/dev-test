@@ -78,6 +78,7 @@ export function RestaurantFilters(props: RestaurantFiltersProps) {
 
         {tags.map((tag) => (
           <ToggleFilter
+            key={tag}
             label={tag}
             isChecked={!!state.tags.includes(tag)}
             onChange={() => dispatch({ type: "toggleTag", payload: { tag } })}

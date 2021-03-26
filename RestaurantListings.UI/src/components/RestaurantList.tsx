@@ -15,7 +15,7 @@ export function RestaurantList(props: RestaurantListProps) {
   return (
     <div>
       {restaurants.map((restaurant) => (
-        <RestaurantItem restaurant={restaurant} />
+        <RestaurantItem key={restaurant.id} restaurant={restaurant} />
       ))}
     </div>
   );
