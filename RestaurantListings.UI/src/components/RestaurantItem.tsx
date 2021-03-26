@@ -6,12 +6,13 @@ export interface RestaurantItemProps {
 
 const Resturant = styled.article({
   fontSize: 14,
-
+  overflow: "hidden",
+  backgroundColor: '#FFF',
   borderRadius: "0.5em",
   boxShadow:
     "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px",
   header: {
-    padding: "1.25em 2em 0 2em",
+    padding: "2em 2em 0 2em",
     display: "flex",
     gap: "1.25em",
 
@@ -21,12 +22,15 @@ const Resturant = styled.article({
     },
   },
 
-  ".photo-img": {},
+  ".photo-img": {
+    borderRadius: "0.5rem",
+  },
 
   "p.description": {
     lineHeight: 1.4,
-    padding: "0.75em 2em",
+    padding: "1.75em 2em",
     maxWidth: "75ch",
+    margin: 0,
   },
 
   footer: {
@@ -42,7 +46,7 @@ const Tag = styled.em(
     padding: "0.25em 1em",
     lineHeight: 1.8,
     fontSize: 10,
-    backgroundColor: "lightgrey",
+    backgroundColor: "#e5e7eb",
     borderRadius: "3px",
     margin: "0 0.52em",
     ":first-of-type": {
