@@ -1,6 +1,7 @@
 import { Restaurant } from "../interfaces/restaurant";
 import { StarRating } from "./StarRating";
 import styled from "@emotion/styled";
+import { useAuthContext } from "../auth/authContext";
 export interface RestaurantItemProps {
   restaurant: Restaurant;
 }
@@ -65,6 +66,12 @@ const Telephone = styled.a({
 
 export function RestaurantItem(props: RestaurantItemProps) {
   const { restaurant } = props;
+
+  const { isAuthenticated } = useAuthContext();
+
+  const rateResturant = async (userRating: number) => {
+  };
+
   return (
     <Resturant>
       <header>
@@ -76,7 +83,11 @@ export function RestaurantItem(props: RestaurantItemProps) {
         />
         <div>
           <h1>{restaurant.name}</h1>
-          <StarRating rating={restaurant.rating} />
+          <StarRating
+            rating={restaurant.rating}
+            saveRating={rateResturant}
+            disabled={!isAuthenticated}
+          />
           <address>{restaurant.address}</address>
           <address>
             <Telephone href={"tel:" + restaurant.phoneNumber} rel="nofollow">
