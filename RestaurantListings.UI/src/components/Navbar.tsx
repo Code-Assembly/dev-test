@@ -9,4 +9,6 @@ export const Navbar = styled.nav({
   marginBottom: "1rem",
   justifyContent: "space-between",
   alignItems: "center",
+  position: "sticky",
+  top: 0
 });
