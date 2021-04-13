@@ -50,6 +50,9 @@ const Container = styled.div({
 const StarContainer = styled.div({
   display: "inline-flex",
   cursor: "pointer",
+  "&.disabled": {
+    cursor: "default",
+  },
 });
 
 const RatingAvatar = styled.em({
@@ -66,22 +69,27 @@ const RatingAvatar = styled.em({
 
 export function StarRating(props: {
   rating: number;
-  saveRating?: (rating: number) => {};
+  saveRating?: (rating: number) => void;
+  disabled: boolean;
 }) {
-  const { rating, saveRating } = props;
+  const { rating, saveRating, disabled = false } = props;
 
   const [userRating, setUserRating] = React.useState(0);
 
   const onMouseEnter = (index: number) => {
-    setUserRating(index);
+    if (!disabled) {
+      setUserRating(index);
+    }
   };
 
   const onMouseLeave = () => {
-    setUserRating(0);
+    if (!disabled) {
+      setUserRating(0);
+    }
   };
 
   const onSaveRating = (rating: number) => {
-    if (saveRating) {
+    if (!disabled && saveRating) {
       saveRating(rating);
     }
   };
@@ -93,7 +101,7 @@ export function StarRating(props: {
   return (
     <Container>
       <RatingAvatar>{formattedRating}</RatingAvatar>
-      <StarContainer>
+      <StarContainer className={`${disabled ? "disabled" : null}`}>
         {[1, 2, 3, 4, 5].map((s) => (
           <StarRatingIcon
             index={s}
