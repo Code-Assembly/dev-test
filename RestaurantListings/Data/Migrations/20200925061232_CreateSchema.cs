@@ -106,6 +106,34 @@ namespace RestaurantListings.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+            name: "RestaurantRatings",
+            columns: table => new
+            {
+                UserId = table.Column<string>(nullable: false),
+                RestaurantId = table.Column<int>(nullable: false),
+                Rating = table.Column<int>(nullable: false),
+            },
+            constraints: table =>
+            {
+
+                table.ForeignKey(
+                    name: "FK_RestaurantRatings_AspNetUsers_UserId",
+                    column: x => x.UserId,
+                    principalTable: "AspNetUsers",
+                    principalColumn: "Id",
+                    onDelete: ReferentialAction.Cascade);
+
+                table.ForeignKey(
+                    name: "FK_RestaurantRatings_Restaurants_RestaurantId",
+                    column: x => x.RestaurantId,
+                    principalTable: "Restaurants",
+                    principalColumn: "Id",
+                    onDelete: ReferentialAction.Cascade);
+
+                table.PrimaryKey("PK_RestaurantRatings", x => new { x.UserId, x.RestaurantId });
+            });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {

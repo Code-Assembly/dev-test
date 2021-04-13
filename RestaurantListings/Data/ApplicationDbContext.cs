@@ -11,6 +11,7 @@ namespace RestaurantListings.Data
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
         public DbSet<Restaurant> Restaurants { get; protected set; }
+        public DbSet<RestaurantRating> RestaurantRatings { get; protected set; }
 
         public ApplicationDbContext(
             DbContextOptions options,
@@ -130,6 +131,14 @@ namespace RestaurantListings.Data
                         PhotoUri = "/images/brunswick.jpg"
                     }
                 );
+            });
+
+            builder.Entity<RestaurantRating>(e =>
+            {
+                e.HasKey(p => new {p.UserId, p.RestaurantId});
+
+                e.Property(p => p.Rating)
+                    .IsRequired();
             });
         }
     }
