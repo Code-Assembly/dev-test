@@ -6,6 +6,7 @@ import styled from "@emotion/styled";
 
 export interface RestaurantListProps {
   restaurants?: Restaurant[];
+  onUpdateRestaurant?: (restaurant: Restaurant) => void;
 }
 
 const Main = styled.main`
@@ -37,13 +38,17 @@ const EmptyList = styled.div({
 });
 
 export function RestaurantList(props: RestaurantListProps) {
-  const { restaurants = [] } = props;
+  const { restaurants = [], onUpdateRestaurant } = props;
 
   return (
     <Main>
       {restaurants.length ? (
         restaurants.map((restaurant) => (
-          <RestaurantItem key={restaurant.id} restaurant={restaurant} />
+          <RestaurantItem
+            key={restaurant.id}
+            restaurant={restaurant}
+            updateRestaurant={onUpdateRestaurant}
+          />
         ))
       ) : (
         <EmptyList>

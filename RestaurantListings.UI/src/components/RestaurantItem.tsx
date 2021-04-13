@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import { useAuthContext } from "../auth/authContext";
 export interface RestaurantItemProps {
   restaurant: Restaurant;
+  updateRestaurant?: (restaurant: Restaurant) => void;
 }
 
 const Resturant = styled.article({
@@ -66,15 +67,15 @@ const Telephone = styled.a({
 });
 
 export function RestaurantItem(props: RestaurantItemProps) {
-  const { restaurant } = props;
+  const { restaurant, updateRestaurant } = props;
 
   const { isAuthenticated } = useAuthContext();
 
   const rateResturant = async (userRating: number) => {
     try {
       const response = await saveUserRating(restaurant.id, userRating);
-      console.log("response", response);
       if (updateRestaurant) {
+        updateRestaurant(response);
       }
     } catch (e) {
       console.error("error:", e);

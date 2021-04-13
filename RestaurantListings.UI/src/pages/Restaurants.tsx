@@ -16,6 +16,14 @@ export default function Restaurants() {
     []
   );
 
+  const updateRestaurant = (restaurant: Restaurant) => {
+    const updateRestaurant = restaurants.find((r) => r.id === restaurant.id);
+    if (updateRestaurant) {
+      Object.assign(updateRestaurant, restaurant);
+      setRestaurants(restaurants.concat());
+    }
+  };
+
   useEffect(() => {
     async function fetchRestaurants() {
       const restaurants = await getRestaurants();
@@ -36,10 +44,9 @@ export default function Restaurants() {
 
       if (value.tags.length) {
         nextRestaurants = nextRestaurants.filter((restaurant) =>
-
-        // Note: every or some can be used below
-        // every : choose resturants with all selected tags (inclusive)
-        // some: choose resturants with some matching tags (intersecting)
+          // Note: every or some can be used below
+          // every : choose resturants with all selected tags (inclusive)
+          // some: choose resturants with some matching tags (intersecting)
 
           value.tags.every((resturantTag) =>
             restaurant.tags.includes(resturantTag)
@@ -63,7 +70,10 @@ export default function Restaurants() {
   return (
     <Container>
       <RestaurantFilters tags={tags} onChange={handleFiltersChange} />
-      <RestaurantList restaurants={filteredRestaurants} />
+      <RestaurantList
+        restaurants={filteredRestaurants}
+        onUpdateRestaurant={updateRestaurant}
+      />
     </Container>
   );
 }
