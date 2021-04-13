@@ -1,5 +1,6 @@
 import { Restaurant } from "../interfaces/restaurant";
 import { StarRating } from "./StarRating";
+import { saveUserRating } from "../api/restaurants";
 import styled from "@emotion/styled";
 import { useAuthContext } from "../auth/authContext";
 export interface RestaurantItemProps {
@@ -70,6 +71,14 @@ export function RestaurantItem(props: RestaurantItemProps) {
   const { isAuthenticated } = useAuthContext();
 
   const rateResturant = async (userRating: number) => {
+    try {
+      const response = await saveUserRating(restaurant.id, userRating);
+      console.log("response", response);
+      if (updateRestaurant) {
+      }
+    } catch (e) {
+      console.error("error:", e);
+    }
   };
 
   return (
